@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+    nginx-reverse-proxy:
+        build: ./volumes/nginx-reverse-proxy/
+        ports:
+            - 81:81
+        restart: always
+        depends_on:
+            - api
+
+    db:
+        image: postgres:10.1-alpine
+        environment:
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=*EasyL0ck*
+
+
+    api:
+        build: ./volumes/api/
+        command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+        volumes:
+          - ./volumes/api/src:/code
+        ports:
+          - 8000:8000
+        environment:
+          - SECRET_KEY=changemeinprod
+          - DB_USER=root
+          - DB_PASSWORD=*EasyL0ck*
+        depends_on:
+          - db
