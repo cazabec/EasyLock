@@ -1,0 +1,17 @@
+# Random files
+*~
+\#*
+
+src/static_dist/
+src/static_root/
+
+# Python compiled byte code
+*.pyc
+
+# SQLite3 database
+*.sqlite
+
+# Node modules
+node_modules/
+yarn.lock
+*.log
