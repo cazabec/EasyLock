@@ -23,7 +23,9 @@ INSTALLED_APPS = [
     'knox',
 
     'accounts',
-    'base'
+    'base',
+    'lock',
+    'pictures'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -92,6 +94,10 @@ STATICFILES_DIRS = [
 
 # store static files locally and serve with whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# media onfiguration
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploaded')
 
 # ############# REST FRAMEWORK ###################
 
