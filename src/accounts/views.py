@@ -7,6 +7,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework import viewsets
 
 from accounts.models import User
 from accounts.serializers import UserRegistrationSerializer, UserSerializer
@@ -28,9 +29,7 @@ class UserLoginView(GenericAPIView):
 
     def post(self, request):
         """User login with username and password."""
-        print("ICIIIIIIIIIIIIIIIII")
         token = AuthToken.objects.create(request.user)
-        print("LAAAAAAAAAAAAAAAAAAAAAAAAA")
         return Response({
             'user': self.get_serializer(request.user).data,
             'token': token
@@ -62,4 +61,18 @@ class UserEmailConfirmationStatusView(GenericAPIView):
     def get(self, request):
         """Retrieve user current confirmed_email status."""
         user = self.request.user
-        return Response({'status': user.confirmed_email}, status=status.HTTP_200_OK)
+        return Response(
+            {'status': user.confirmed_email},
+            status=status.HTTP_200_OK)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """Retrieve users"""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        """Retrieve all users."""
+        return User.objects.all()

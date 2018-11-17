@@ -1,11 +1,10 @@
-from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-
+from rest_framework.permissions import IsAuthenticated
+from knox.auth import TokenAuthentication
 
 from lock.serializers import LockSerializer
-
 from lock.models import Lock
+
 
 class LockViewSet(viewsets.ModelViewSet):
     """
@@ -13,7 +12,8 @@ class LockViewSet(viewsets.ModelViewSet):
     """
     queryset = Lock.objects.all()
     serializer_class = LockSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         """
@@ -21,4 +21,4 @@ class LockViewSet(viewsets.ModelViewSet):
         for the currently authenticated user.
         """
         user = self.request.user
-        return Lock.objects.all()
+        return Lock.objects.filter(right__user=user)

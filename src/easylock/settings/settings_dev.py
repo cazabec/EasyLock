@@ -25,7 +25,8 @@ INSTALLED_APPS = [
     'accounts',
     'base',
     'lock',
-    'pictures'
+    'pictures',
+    'rights'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -98,6 +99,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # media onfiguration
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploaded')
+MEDIA_URL = '/media/'
 
 # ############# REST FRAMEWORK ###################
 

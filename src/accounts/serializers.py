@@ -1,12 +1,18 @@
 from rest_framework import serializers
 
 from accounts.models import User
+from pictures.serializers import PictureSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
+
+    profile_picture = PictureSerializer(
+            many=True, read_only=True, source='get_profile_picture'
+        )
+
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name',)
+        fields = ('email', 'first_name', 'last_name', 'profile_picture')
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -36,6 +42,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         """
 
         if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError('Email already in use, please use a different email address.')
+            raise serializers.ValidationError(
+                'Email already in use, please use a different email address.')
 
         return value

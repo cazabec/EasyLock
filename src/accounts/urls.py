@@ -1,7 +1,13 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.utils.translation import ugettext_lazy as _
+from rest_framework import routers
 
 import accounts.views
+
+router = routers.SimpleRouter()
+
+router.register(r'', accounts.views.UserViewSet)
+
 
 urlpatterns = [
     url(_(r'^register/$'),
@@ -16,5 +22,5 @@ urlpatterns = [
     url(_(r'^status/email/$'),
         accounts.views.UserEmailConfirmationStatusView.as_view(),
         name='status'),
-
+    url(r'', include(router.urls)),
 ]
