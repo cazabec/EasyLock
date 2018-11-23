@@ -1,6 +1,6 @@
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))  # remove /sswmain/settings to get base folder
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
@@ -64,8 +64,8 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': 'db', # set in docker-compose.yml
-        'PORT': 5432 # default postgres port
+        'HOST': 'db',  # set in docker-compose.yml
+        'PORT': 5432   # default postgres port
     }
 }
 
@@ -109,7 +109,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',

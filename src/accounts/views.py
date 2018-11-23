@@ -66,13 +66,9 @@ class UserEmailConfirmationStatusView(GenericAPIView):
             status=status.HTTP_200_OK)
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """Retrieve users"""
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('email')
     serializer_class = UserSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-
-    def get(self, request):
-        """Retrieve all users."""
-        return User.objects.all()

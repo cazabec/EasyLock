@@ -13,7 +13,8 @@ class Right(models.Model):
         (GUEST, 'guest'),
     )
 
-    right = models.CharField(max_length=5, choices=RIGHTS_CHOICES, default=GUEST)
+    right = models.CharField(
+        max_length=5, choices=RIGHTS_CHOICES, default=GUEST)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     lock = models.ForeignKey(Lock, on_delete=models.CASCADE)
     expiration = models.DateTimeField(blank=True, null=True)

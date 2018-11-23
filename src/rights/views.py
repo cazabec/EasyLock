@@ -10,7 +10,7 @@ class RightViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for viewing rights.
     """
-    queryset = Right.objects.all()
+    queryset = Right.objects.all().order_by('right')
     serializer_class = RightSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)

@@ -10,7 +10,6 @@ class LockViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for viewing and editing Locks.
     """
-    queryset = Lock.objects.all()
     serializer_class = LockSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -21,4 +20,4 @@ class LockViewSet(viewsets.ModelViewSet):
         for the currently authenticated user.
         """
         user = self.request.user
-        return Lock.objects.filter(right__user=user)
+        return Lock.objects.filter(right__user=user).order_by('name')

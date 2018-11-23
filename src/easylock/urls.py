@@ -13,7 +13,7 @@ from rights.views import RightViewSet
 
 router = routers.SimpleRouter()
 
-router.register(r'^api/v1/lock', LockViewSet)
+router.register(r'^api/v1/lock', LockViewSet, 'lock')
 router.register(r'^api/v1/upload', PictureViewSet)
 router.register(r'^api/v1/rights', RightViewSet)
 
