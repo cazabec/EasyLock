@@ -8,20 +8,23 @@ from django.conf.urls.static import static
 from base import views as base_views
 
 from lock.views import LockViewSet
+from lock.views import OpenRequest
 from pictures.views import PictureViewSet
 from rights.views import RightViewSet
 
 router = routers.SimpleRouter()
 
 router.register(r'^api/v1/lock', LockViewSet, 'lock')
-router.register(r'^api/v1/upload', PictureViewSet)
-router.register(r'^api/v1/rights', RightViewSet)
+router.register(r'^api/v1/upload', PictureViewSet, 'upload')
+router.register(r'^api/v1/rights', RightViewSet, 'rigths')
 
 urlpatterns = [
 
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),
 
     url(r'^api/v1/getdata/', base_views.ProtectedDataView.as_view()),
+
+    url(r'^api/v1/open/(?P<lock_id>[0-9a-f-]+)', OpenRequest.as_view()),
 
     url(r'^api/$', get_schema_view()),
 
