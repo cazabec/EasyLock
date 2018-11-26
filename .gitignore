@@ -4,8 +4,8 @@
 
 src/static_dist/
 src/static_root/
-src/pictures/upload/input/*
-src/pictures/upload/output/*
+src/pictures/upload/input/**
+src/pictures/upload/output/**
 
 # Python compiled byte code
 *.pyc
