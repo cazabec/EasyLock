@@ -171,4 +171,8 @@ class User(AbstractBaseUser):
         return False
 
     def get_profile_picture(self):
-        return self.picture_set.all()[:1]
+        first_picture = self.picture_set.all()[:1]
+        if (first_picture):
+            return first_picture[0].image.url
+        else:
+            return None

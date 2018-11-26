@@ -1,18 +1,15 @@
 from rest_framework import serializers
 
 from accounts.models import User
-from pictures.serializers import PictureSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
 
-    profile_picture = PictureSerializer(
-            many=True, read_only=True, source='get_profile_picture'
-        )
+    profile_picture = serializers.StringRelatedField(read_only=True, source='get_profile_picture')
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'profile_picture')
+        fields = ('id', 'email', 'first_name', 'last_name', 'profile_picture')
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):

@@ -4,13 +4,15 @@
 
 src/static_dist/
 src/static_root/
-src/uploaded/*
+src/pictures/upload/input/*
+src/pictures/upload/output/*
 
 # Python compiled byte code
 *.pyc
 
 # SQLite3 database
 *.sqlite
+*.sqlite3
 
 # Node modules
 node_modules/

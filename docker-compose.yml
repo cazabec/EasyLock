@@ -17,7 +17,6 @@ services:
             - POSTGRES_USER=root
             - POSTGRES_PASSWORD=*EasyL0ck*
 
-
     api:
         build:
           context: .
@@ -34,6 +33,7 @@ services:
           - DB_PASSWORD=*EasyL0ck*
         depends_on:
           - db
+
     app:
       build:
           context: .
@@ -44,3 +44,12 @@ services:
         - .:/code
       depends_on:
         - api
+    ai:
+      build:
+          context: .
+          dockerfile: ./docker/ai/Dockerfile
+      command: python3 manage.py runserver 0.0.0.0:4000
+      volumes:
+        - ./src:/code
+      ports:
+          - 4000:4000
