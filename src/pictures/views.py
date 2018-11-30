@@ -4,13 +4,11 @@ from rest_framework.permissions import IsAuthenticated
 from knox.auth import TokenAuthentication
 
 from pictures.serializers import PictureSerializer
-from pictures.models import Picture
 
 import requests
 
 
 class PictureViewSet(viewsets.ModelViewSet):
-    queryset = Picture.objects.all()
     serializer_class = PictureSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
