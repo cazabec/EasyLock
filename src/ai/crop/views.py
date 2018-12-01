@@ -8,8 +8,9 @@ class CropView(View):
 
     def get(self, request):
         crop_folder(
-            '/code/pictures/upload/input/user_' + request.GET['user'],
-            '/code/pictures/upload/output',
+            '/root/openface/code/pictures/upload/input/user_' +
+            request.GET['user'],
+            '/root/openface/code/pictures/upload/output',
             180,
             request.GET['image']
         )

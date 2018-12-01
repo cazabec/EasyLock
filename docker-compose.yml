@@ -44,22 +44,13 @@ services:
         - .:/code
       depends_on:
         - api
+
     ai:
       build:
           context: .
           dockerfile: ./docker/ai/Dockerfile
-      command: python3 manage.py runserver 0.0.0.0:4000
-      volumes:
-        - ./src:/code
-      ports:
-          - 4000:4000
-
-    ai2:
-      build:
-          context: .
-          dockerfile: ./docker/ai2/Dockerfile
       volumes:
         - ./src:/root/openface/code
-      command: bash -c "cd /root/openface/code/ai2 && python manage.py runserver 0.0.0.0:2000"
+      command: bash -c "cd /root/openface/code/ai && python manage.py runserver 0.0.0.0:2000"
       ports:
           - 2000:2000 

@@ -101,6 +101,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures/upload/input')
 MEDIA_URL = '/media/'
 
+FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'pictures/tmp')
+
 # ############# REST FRAMEWORK ###################
 
 REST_FRAMEWORK = {
