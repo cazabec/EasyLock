@@ -64,7 +64,7 @@ class OpenRequest(APIView):
         image = self.get_image(request)
         self.handle_uploaded_file(image)
         response = requests.get(
-            'http://ai2:2000/classifier/run/?'
+            'http://ai:2000/classifier/run/?'
             + 'image=' + str(image))
         user_id = response.text.splitlines()[2].split()[1][5:]
         similarity = response.text.splitlines()[2].split()[3]
