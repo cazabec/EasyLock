@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { push } from 'react-router-redux';
+import { Link, Redirect } from "react-router-dom";
 import t from 'tcomb-form';
 import PropTypes from 'prop-types';
 
@@ -12,12 +13,14 @@ const Form = t.form.Form;
 
 const Login = t.struct({
     email: t.String,
+    firstname: t.String,
+    lastname: t.String,
     password: t.String
 });
 
-const LoginFormOptions = {
+const RegisterFormOptions = {
     auto: 'placeholders',
-    help: <i>Hint: a@a.com / qw</i>,
+    help: <i>Hint: j@j.com / john / doe / johnIsTheBest</i>,
     fields: {
         password: {
             type: 'password'
@@ -25,14 +28,13 @@ const LoginFormOptions = {
     }
 };
 
-class LoginView extends React.Component {
+class RegisterView extends React.Component {
     static propTypes = {
         dispatch: PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool.isRequired,
-        isAuthenticating: PropTypes.bool.isRequired,
         statusText: PropTypes.string,
+        isAuthenticated: PropTypes.bool.isRequired,
         actions: PropTypes.shape({
-            authLoginUser: PropTypes.func.isRequired
+            authRegisterUser: PropTypes.func.isRequired
         }).isRequired,
         location: PropTypes.shape({
             search: PropTypes.string.isRequired
@@ -46,20 +48,19 @@ class LoginView extends React.Component {
 
     constructor(props) {
         super(props);
-
-        const redirectRoute = this.props.location ? this.extractRedirect(this.props.location.search) || '/home' : '/home';
         this.state = {
             formValues: {
                 email: '',
+                firstname: '',
+                lastname: '',
                 password: ''
-            },
-            redirectTo: redirectRoute
+            }
         };
     }
 
     componentWillMount() {
         if (this.props.isAuthenticated) {
-            this.props.dispatch(push('/home'));
+            this.props.history.push('/home')
         }
     }
 
@@ -67,17 +68,15 @@ class LoginView extends React.Component {
         this.setState({ formValues: value });
     };
 
-    extractRedirect = (string) => {
-        const match = string.match(/next=(.*)/);
-        return match ? match[1] : '/';
-    };
-
-    login = (e) => {
+    register = (e) => {
         e.preventDefault();
-        const value = this.loginForm.getValue();
+        const value = this.registerForm.getValue();
         console.log(value);
         if (value) {
-            this.props.actions.authLoginUser(value.email, value.password, this.state.redirectTo);
+            this.props.actions.authRegisterUser(value.email,
+                value.firstname,
+                value.lastname,
+                value.password);
         }
     };
 
@@ -102,25 +101,26 @@ class LoginView extends React.Component {
         }
 
         return (
-            <div className="container login">
-                <h1 className="text-center">Login</h1>
+            <div className="container">
+                <h1 className="text-center">Register</h1>
                 <div className="login-container margin-top-medium">
                     {statusText}
-                    <form onSubmit={this.login}>
-                        <Form ref={(ref) => { this.loginForm = ref; }}
+                    <form onSubmit={this.register}>
+                        <Form ref={(ref) => { this.registerForm = ref; }}
                             type={Login}
-                            options={LoginFormOptions}
+                            options={RegisterFormOptions}
                             value={this.state.formValues}
                             onChange={this.onFormChange}
                         />
-                        <button disabled={this.props.isAuthenticating}
+                        <button
                             type="submit"
                             className="btn btn-default btn-block"
                         >
-                            Submit
+                            Register
                         </button>
                     </form>
                 </div>
+                <Link to="/login">Already have an account ?</Link>
             </div>
         );
     }
@@ -128,9 +128,8 @@ class LoginView extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        statusText: state.auth.statusText,
         isAuthenticated: state.auth.isAuthenticated,
-        isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText
     };
 };
 
@@ -141,5 +140,5 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginView);
-export { LoginView as LoginViewNotConnected };
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterView);
+export { RegisterView as RegisterViewNotConnected };

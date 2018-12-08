@@ -1,6 +1,13 @@
 .navbar {
   border-radius: 0px;
-
+  width: 40%;
+  height: 100vh;
+  position: static;
+  width: 40%;
+  margin-bottom: 0 !important;
+  .navbar-title {
+    margin-top:300px;
+  }
   a {
     text-decoration: none;
   }
