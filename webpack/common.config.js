@@ -13,7 +13,6 @@ const PATHS = {
 };
 
 const VENDOR = [
-    'babel-polyfill',
     'history',
     'react',
     'react-dom',

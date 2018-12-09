@@ -16,6 +16,6 @@ class PictureViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
         requests.get(
-            'http://ai2:2000/image/crop/?user='
+            'http://ai:2000/image/crop/?user='
             + str(self.request.user.id)
             + '&image=' + str(self.request.FILES['image']))

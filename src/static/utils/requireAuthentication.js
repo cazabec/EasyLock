@@ -30,7 +30,7 @@ export default function requireAuthentication(Component) {
 
         render() {
             return (
-                <div>
+                <div style={{width: '100%'}}>
                     {this.props.isAuthenticated === true
                         ? <Component {...this.props} />
                         : null

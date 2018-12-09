@@ -11,8 +11,7 @@ module.exports = {
                 {
                     loader: 'css-loader',
                     options: { importLoaders: 1 },
-                },
-                'postcss-loader']
+                }]
             )
         }, {
             test: /\.scss$/,
@@ -21,7 +20,6 @@ module.exports = {
                     loader: 'css-loader',
                     options: { importLoaders: 1 },
                 },
-                'postcss-loader',
                 {
                     loader: 'sass-loader'
                 }]

@@ -1,0 +1,119 @@
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import ProgressButton from 'react-progress-button';
+
+import ImageUploader from 'react-images-upload';
+
+import * as actionCreators from '../../actions/upload';
+
+import './style.scss';
+import '../../../../node_modules/react-progress-button/react-progress-button.css';
+
+class UploadView extends React.Component {
+  static propTypes = {
+    statusText: PropTypes.string,
+    isAuthenticated: PropTypes.bool.isRequired,
+    token: PropTypes.string.isRequired,
+    actions: PropTypes.shape({
+      uploadPicture: PropTypes.func.isRequired,
+      uploadPictureSuccess: PropTypes.func.isRequired,
+    }).isRequired,
+  };
+
+  static defaultProps = {
+    statusText: '',
+    location: null,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = { pictures: [] };
+    this.onDrop = this.onDrop.bind(this);
+    this.upload = this.upload.bind(this);
+  }
+
+  onDrop(pictureFiles) {
+    this.setState({
+      pictures: pictureFiles,
+    });
+  }
+
+  upload() {
+    const promiseArray = [];
+    this.state.pictures.forEach((picture) => {
+      promiseArray.push(this.props.actions.uploadPicture(picture, this.props.token));
+    });
+    Promise.all(promiseArray).then(() => {
+      this.props.actions.uploadPictureSuccess();
+      this.props.history.push('/home');
+    });
+  }
+
+  render() {
+    let statusText = null;
+    if (this.props.statusText) {
+      const statusTextClassNames = classNames({
+        alert: true,
+        'alert-danger': this.props.statusText.indexOf('Authentication Error') === 0,
+        'alert-success': this.props.statusText.indexOf('Authentication Error') !== 0,
+      });
+
+      statusText = (
+        <div className="row">
+          <div className="col-sm-12">
+            <div className={statusTextClassNames}>
+              {this.props.statusText}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    let buttonState;
+    if (this.state.pictures.length < 5) {
+        buttonState = 'disabled';
+    } else if (this.props.uploadPending) {
+        buttonState = 'loading';
+    } else {
+        buttonState = '';
+    }
+
+    return (
+      <div className="container">
+        <h1 className="text-center">Upload photos</h1>
+        <div className="login-container margin-top-medium">
+          {statusText}
+        </div>
+        <p> Please upload 5 profile images </p>
+        <ImageUploader
+          withIcon
+          withPreview
+          buttonText="Choose images"
+          onChange={this.onDrop}
+          imgExtension={['.jpg', '.png']}
+          maxFileSize={5242880}
+        />
+        <ProgressButton onClick={this.upload} state={buttonState}>
+          Go!
+        </ProgressButton>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  statusText: state.auth.statusText,
+  isAuthenticated: state.auth.isAuthenticated,
+  uploadPending: state.upload.uploadPending,
+});
+
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+  actions: bindActionCreators(actionCreators, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UploadView);
+export { UploadView as UploadViewNotConnected };

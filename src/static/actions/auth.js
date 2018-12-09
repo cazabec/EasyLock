@@ -94,7 +94,6 @@ export function authLoginUser(email, password, redirect = '/') {
 
 export function authRegisterUser(email, firstname, lastname, password) {
     return (dispatch) => {
-        dispatch(authLoginUserRequest());
         const data = {email: email, first_name: firstname, last_name: lastname, password: password};
         return fetch(SERVER_URL + '/api/v1/accounts/register/', {
             method: 'post',
