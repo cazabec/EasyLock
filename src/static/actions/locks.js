@@ -1,0 +1,94 @@
+import {
+  GET_LOCKS_REQUEST,
+  GET_LOCKS_FAILURE,
+  GET_LOCKS_SUCCESS,
+  GET_RIGHTS_REQUEST,
+  GET_RIGHTS_FAILURE,
+  GET_RIGHTS_SUCCESS,
+
+} from '../constants';
+
+import { SERVER_URL } from '../utils/config';
+import { checkHttpStatus, parseJSON } from '../utils';
+
+export function getLocksRequest() {
+  return {
+    type: GET_LOCKS_REQUEST,
+  };
+}
+
+export function getLocksSuccess(response) {
+  return {
+    type: GET_LOCKS_SUCCESS,
+    payload: response.results,
+  };
+}
+
+export function getLocksFailure() {
+  return {
+    type: GET_LOCKS_FAILURE,
+  };
+}
+
+export function getLocks(token) {
+  return (dispatch) => {
+    dispatch(getLocksRequest());
+    return fetch(SERVER_URL + '/api/v1/lock/', {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Token ' + token,
+      },
+    })
+      .then(checkHttpStatus)
+      .then(parseJSON)
+      .then((response) => {
+        dispatch(getLocksSuccess(response));
+      })
+      .catch((error) => {
+        dispatch(getLocksFailure());
+        return Promise.resolve();
+      });
+  };
+}
+
+export function getRightsRequest() {
+  return {
+    type: GET_RIGHTS_REQUEST,
+  };
+}
+
+export function getRightsSuccess(response) {
+  return {
+    type: GET_RIGHTS_SUCCESS,
+    payload: response.results,
+  };
+}
+
+export function getRightsFailure() {
+  return {
+    type: GET_RIGHTS_FAILURE,
+  };
+}
+
+export function getRights(token) {
+  return (dispatch) => {
+    dispatch(getRightsRequest());
+    return fetch(SERVER_URL + '/api/v1/rights/', {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Token ' + token,
+      },
+    })
+      .then(checkHttpStatus)
+      .then(parseJSON)
+      .then((response) => {
+        dispatch(getRightsSuccess(response));
+      })
+      .catch((error) => {
+        dispatch(getRightsFailure());
+        return Promise.resolve();
+      });
+  };
+}

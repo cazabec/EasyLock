@@ -56,7 +56,7 @@ class RegisterView extends React.Component {
 
   componentWillMount() {
     if (this.props.isAuthenticated) {
-      this.props.history.push('/home');
+      this.props.history.push('/upload');
     }
   }
 

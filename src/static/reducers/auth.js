@@ -2,7 +2,7 @@ import {
     AUTH_LOGIN_USER_REQUEST,
     AUTH_LOGIN_USER_SUCCESS,
     AUTH_LOGIN_USER_FAILURE,
-    AUTH_LOGOUT_USER
+    AUTH_LOGOUT_USER,
 } from '../constants';
 
 
@@ -28,6 +28,7 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticated: true,
                 token: action.payload.token,
                 userName: action.payload.user.email,
+                user: action.payload.user,
                 statusText: 'You have been successfully logged in.'
             });
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -71,7 +72,7 @@ class App extends React.Component {
                             </div>
                                 {this.props.isAuthenticated ?
                                     <div className="collapse navbar-collapse" id="top-navbar">
-                                        <p> navbar </p>
+                                      <Link to="/locks">My locks</Link>
                                     </div> :
                                     <h2 className="navbar-title"> EasyLock, une solution pour administrer vos serrures simplement</h2>
                                 }

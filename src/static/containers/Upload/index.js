@@ -1,7 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import ProgressButton from 'react-progress-button';
 
@@ -14,8 +13,6 @@ import '../../../../node_modules/react-progress-button/react-progress-button.css
 
 class UploadView extends React.Component {
   static propTypes = {
-    statusText: PropTypes.string,
-    isAuthenticated: PropTypes.bool.isRequired,
     token: PropTypes.string.isRequired,
     actions: PropTypes.shape({
       uploadPicture: PropTypes.func.isRequired,
@@ -33,6 +30,13 @@ class UploadView extends React.Component {
     this.state = { pictures: [] };
     this.onDrop = this.onDrop.bind(this);
     this.upload = this.upload.bind(this);
+  }
+
+  componentWillMount() {
+    if (this.props.profile_picture !== null &&
+      this.props.profile_picture !== undefined) {
+      this.props.history.push('/home');
+    }
   }
 
   onDrop(pictureFiles) {
@@ -53,40 +57,18 @@ class UploadView extends React.Component {
   }
 
   render() {
-    let statusText = null;
-    if (this.props.statusText) {
-      const statusTextClassNames = classNames({
-        alert: true,
-        'alert-danger': this.props.statusText.indexOf('Authentication Error') === 0,
-        'alert-success': this.props.statusText.indexOf('Authentication Error') !== 0,
-      });
-
-      statusText = (
-        <div className="row">
-          <div className="col-sm-12">
-            <div className={statusTextClassNames}>
-              {this.props.statusText}
-            </div>
-          </div>
-        </div>
-      );
-    }
-
     let buttonState;
     if (this.state.pictures.length < 5) {
-        buttonState = 'disabled';
+      buttonState = 'disabled';
     } else if (this.props.uploadPending) {
-        buttonState = 'loading';
+      buttonState = 'loading';
     } else {
-        buttonState = '';
+      buttonState = '';
     }
 
     return (
       <div className="container">
         <h1 className="text-center">Upload photos</h1>
-        <div className="login-container margin-top-medium">
-          {statusText}
-        </div>
         <p> Please upload 5 profile images </p>
         <ImageUploader
           withIcon
@@ -97,7 +79,7 @@ class UploadView extends React.Component {
           maxFileSize={5242880}
         />
         <ProgressButton onClick={this.upload} state={buttonState}>
-          Go!
+          Upload
         </ProgressButton>
       </div>
     );
@@ -105,8 +87,7 @@ class UploadView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  statusText: state.auth.statusText,
-  isAuthenticated: state.auth.isAuthenticated,
+  profile_picture: state.auth.user.profile_picture,
   uploadPending: state.upload.uploadPending,
 });
 
