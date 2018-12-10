@@ -7,6 +7,8 @@ import * as actionCreators from '../../actions/locks';
 
 import LockList from '../../components/locks';
 
+import './styles.scss';
+
 class LocksView extends React.Component {
   static propTypes = {
     token: PropTypes.string.isRequired,

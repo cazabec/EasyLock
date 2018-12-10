@@ -57,9 +57,9 @@ class LoginView extends React.Component {
         };
     }
 
-    componentWillMount() {
-        if (this.props.isAuthenticated) {
-            this.props.dispatch(push('/home'));
+    componentWillReceiveProps(props) {
+        if (props.isAuthenticated) {
+            props.dispatch(push('/home'));
         }
     }
 
@@ -69,7 +69,7 @@ class LoginView extends React.Component {
 
     extractRedirect = (string) => {
         const match = string.match(/next=(.*)/);
-        return match ? match[1] : '/';
+        return match ? match[1] : '/home';
     };
 
     login = (e) => {

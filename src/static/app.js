@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -38,6 +37,10 @@ class App extends React.Component {
         this.props.dispatch(push('/protected'));
     };
 
+    goToLocks = () => {
+        this.props.dispatch(push('/locks'));
+    };
+
     render() {
         const homeClass = classNames({
             active: this.props.location && this.props.location.pathname === '/'
@@ -72,7 +75,9 @@ class App extends React.Component {
                             </div>
                                 {this.props.isAuthenticated ?
                                     <div className="collapse navbar-collapse" id="top-navbar">
-                                      <Link to="/locks">My locks</Link>
+                                        <a className="navbar-brand" onClick={this.goToLocks}>
+                                            my locks
+                                        </a>
                                     </div> :
                                     <h2 className="navbar-title"> EasyLock, une solution pour administrer vos serrures simplement</h2>
                                 }

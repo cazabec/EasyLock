@@ -31,7 +31,6 @@ class RegisterView extends React.Component {
   static propTypes = {
     statusText: PropTypes.string,
     isAuthenticated: PropTypes.bool.isRequired,
-    history: PropTypes.func.isRequired,
     actions: PropTypes.shape({
       authRegisterUser: PropTypes.func.isRequired,
     }).isRequired,

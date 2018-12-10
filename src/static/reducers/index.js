@@ -4,11 +4,13 @@ import authReducer from './auth';
 import dataReducer from './data';
 import uploadReducer from './upload';
 import locksReducer from './locks';
+import usersReducer from './users';
 
 export default combineReducers({
-    auth: authReducer,
-    data: dataReducer,
-    routing: routerReducer,
-    upload: uploadReducer,
-    locks: locksReducer,
+  auth: authReducer,
+  data: dataReducer,
+  routing: routerReducer,
+  upload: uploadReducer,
+  locks: locksReducer,
+  users: usersReducer,
 });
