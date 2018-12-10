@@ -14,6 +14,7 @@ class LocksView extends React.Component {
     token: PropTypes.string.isRequired,
     actions: PropTypes.shape({
       getLocks: PropTypes.func.isRequired,
+      getRights: PropTypes.func.isRequired,
     }).isRequired,
   };
 
@@ -24,13 +25,17 @@ class LocksView extends React.Component {
 
   componentWillMount() {
     this.props.actions.getLocks(this.props.token);
+    this.props.actions.getRights(this.props.token);
   }
 
   render() {
     return (
       <div className="container">
         <h1 className="text-center">Locks</h1>
-        <LockList locks={this.props.locks || []} />
+        {
+          this.props.locks.length && this.props.rights.length &&
+          <LockList locks={this.props.locks} rights={this.props.rights} me={this.props.me}/>
+        }
       </div>
     );
   }
@@ -38,6 +43,8 @@ class LocksView extends React.Component {
 
 const mapStateToProps = state => ({
   locks: state.locks.list,
+  rights: state.locks.rights,
+  me: state.auth.user.id,
 });
 
 const mapDispatchToProps = dispatch => ({

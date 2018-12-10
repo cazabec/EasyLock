@@ -1,6 +1,6 @@
 import React from 'react';
 import { Column, Table } from 'react-virtualized';
-import { withRouter } from "react-router";
+import { withRouter } from 'react-router';
 import 'react-virtualized/styles.css'; // only needs to be imported once
 
 const LockList = props =>
@@ -25,12 +25,21 @@ const LockList = props =>
         label='Description'
         dataKey='description'
       />
-    <Column
-        width={300}
+      <Column
+        width={50}
         label='Members'
         dataKey='members'
-        cellRenderer={({cellData}) => 'users'}
+        cellRenderer={data => props.rights.filter(right => data.rowData.id === right.lock).length}
       />
+      <Column
+        width={100}
+        label='Role'
+        dataKey='role'
+        cellRenderer={data => props.rights.filter(
+          right => data.rowData.id === right.lock &&
+          props.me === right.user)[0].right}
+      />
+
 
     </Table>
   </div>);
