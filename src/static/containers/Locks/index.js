@@ -1,5 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -32,6 +33,7 @@ class LocksView extends React.Component {
     return (
       <div className="container">
         <h1 className="text-center">Locks</h1>
+         <button type="button" onClick={() => {this.props.dispatch(push('/lock/new'))}}>Create a Lock</button> 
         {
           this.props.locks.length && this.props.rights.length &&
           <LockList locks={this.props.locks} rights={this.props.rights} me={this.props.me}/>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
+import LockView from './containers/Locks/LockView';
+import CreateView from './containers/Locks/CreateView';
 import {
   LoginView,
   HomeView,
@@ -9,7 +11,6 @@ import {
   UploadView,
   LocksView,
 } from './containers';
-import LockView from './containers/Locks/LockView';
 
 import requireAuthentication from './utils/requireAuthentication';
 
@@ -19,6 +20,7 @@ export default(
     <Route path="/home" component={HomeView} />
     <Route path="/upload" component={requireAuthentication(UploadView)} />
     <Route path="/locks" component={requireAuthentication(LocksView)} />
+    <Route path="/lock/new" component={requireAuthentication(CreateView)} />
     <Route path="/lock/:id" component={requireAuthentication(LockView)} />
     <Route path="/login" component={LoginView} />
     <Route path="/protected" component={requireAuthentication(ProtectedView)} />

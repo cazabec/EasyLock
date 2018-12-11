@@ -2,14 +2,20 @@ import {
   GET_LOCKS_REQUEST,
   GET_LOCKS_FAILURE,
   GET_LOCKS_SUCCESS,
+
   GET_RIGHTS_REQUEST,
   GET_RIGHTS_FAILURE,
   GET_RIGHTS_SUCCESS,
+
+  CREATE_LOCK_REQUEST,
+  CREATE_LOCK_FAILURE,
+  CREATE_LOCK_SUCCESS,
 
 } from '../constants';
 
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
+import { push } from 'react-router-redux';
 
 export function getLocksRequest() {
   return {
@@ -88,6 +94,50 @@ export function getRights(token) {
       })
       .catch((error) => {
         dispatch(getRightsFailure());
+        return Promise.resolve();
+      });
+  };
+}
+
+export function createLockRequest() {
+  return {
+    type: CREATE_LOCK_REQUEST,
+  };
+}
+
+export function createLockSuccess(response) {
+  return {
+    type: CREATE_LOCK_SUCCESS,
+    payload: response.results,
+  };
+}
+
+export function createLockFailure() {
+  return {
+    type: CREATE_LOCK_FAILURE,
+  };
+}
+
+export function createLock(name, description, token) {
+  return (dispatch) => {
+    dispatch(createLockRequest());
+    return fetch(SERVER_URL + '/api/v1/lock/', {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Token ' + token,
+      },
+      body: JSON.stringify({name: name, description: description})
+    })
+      .then(checkHttpStatus)
+      .then(parseJSON)
+      .then((response) => {
+        dispatch(createLockSuccess(response));
+        dispatch(push('/locks'));
+      })
+      .catch((error) => {
+        dispatch(createLockFailure());
         return Promise.resolve();
       });
   };

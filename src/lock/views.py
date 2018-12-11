@@ -26,6 +26,11 @@ class LockViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
+    def perform_create(self, serializer):
+        lock = serializer.save()
+        Right.objects.create(user=self.request.user, lock=lock, right=Right.OWNER)
+
+
     def get_queryset(self):
         """
         This view should return a list of all the locks
