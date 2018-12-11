@@ -1,5 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -31,8 +32,13 @@ class LockView extends React.Component {
     const users = this.props.users.filter((user) => usersIds.includes(user.id))
     return (
       <div className="container">
+        <button
+          type="button"
+          onClick={() => {this.props.dispatch(push('/lock/' + lock + '/invite'))}}>
+          Invite somebody
+        </button>
         <UserList users={users} rights={this.props.rights} lock={lock}/>
-        < p className="text-center">{this.props.match.params.id}</p>
+        <p className="text-center">{this.props.match.params.id}</p>
       </div>
     );
   }

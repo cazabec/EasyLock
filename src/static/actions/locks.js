@@ -11,6 +11,10 @@ import {
   CREATE_LOCK_FAILURE,
   CREATE_LOCK_SUCCESS,
 
+  INVITE_REQUEST,
+  INVITE_FAILURE,
+  INVITE_SUCCESS,
+
 } from '../constants';
 
 import { SERVER_URL } from '../utils/config';
@@ -138,6 +142,55 @@ export function createLock(name, description, token) {
       })
       .catch((error) => {
         dispatch(createLockFailure());
+        return Promise.resolve();
+      });
+  };
+}
+
+export function inviteRequest() {
+  return {
+    type: INVITE_REQUEST,
+  };
+}
+
+export function inviteSuccess(response) {
+  return {
+    type: INVITE_SUCCESS,
+    payload: response.results,
+  };
+}
+
+export function inviteFailure() {
+  return {
+    type: INVITE_FAILURE,
+  };
+}
+
+export function invite(user, lock, expiration, token) {
+  return (dispatch) => {
+    dispatch(inviteRequest());
+    return fetch(SERVER_URL + '/api/v1/rights/', {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Token ' + token,
+      },
+      body: JSON.stringify({
+        right: 'GUEST',
+        expiration: expiration,
+        user: user,
+        lock: lock,
+      }),
+    })
+      .then(checkHttpStatus)
+      .then(parseJSON)
+      .then((response) => {
+        dispatch(inviteSuccess(response));
+        dispatch(push('/lock/' + lock));
+      })
+      .catch((error) => {
+        dispatch(inviteFailure());
         return Promise.resolve();
       });
   };
