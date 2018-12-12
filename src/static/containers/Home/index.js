@@ -7,17 +7,23 @@ class HomeView extends React.Component {
     static propTypes = {
         statusText: PropTypes.string,
         userName: PropTypes.string,
-        dispatch: PropTypes.func.isRequired
+        dispatch: PropTypes.func.isRequired,
     };
 
     static defaultProps = {
         statusText: '',
-        userName: ''
+        userName: '',
     };
 
     goToProtected = () => {
         this.props.dispatch(push('/protected'));
     };
+
+    componentWillMount() {
+        if (this.props.user.profile_picture === null && !this.props.uploadDone) {
+            this.props.dispatch(push('/upload'));
+        }
+    }
 
     render() {
         return (
@@ -46,7 +52,9 @@ class HomeView extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userName: state.auth.userName,
-        statusText: state.auth.statusText
+        user: state.auth.user,
+        statusText: state.auth.statusText,
+        uploadDone: state.upload.uploadDone,
     };
 };
 

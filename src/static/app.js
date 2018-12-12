@@ -9,37 +9,42 @@ import './styles/main.scss';
 
 class App extends React.Component {
     static propTypes = {
-        isAuthenticated: PropTypes.bool.isRequired,
-        children: PropTypes.shape().isRequired,
-        dispatch: PropTypes.func.isRequired,
-        location: PropTypes.shape({
-            pathname: PropTypes.string
-        })
+      isAuthenticated: PropTypes.bool.isRequired,
+      children: PropTypes.shape().isRequired,
+      dispatch: PropTypes.func.isRequired,
+      location: PropTypes.shape({
+        pathname: PropTypes.string,
+      }),
     };
 
     static defaultProps = {
-        location: undefined
+      location: undefined,
     };
 
     logout = () => {
-        this.props.dispatch(authLogoutAndRedirect());
+      this.props.dispatch(authLogoutAndRedirect());
     };
 
     goToIndex = () => {
-        this.props.dispatch(push('/'));
+      this.props.dispatch(push('/home'));
     };
 
     goToLogin = () => {
-        this.props.dispatch(push('/login'));
+      this.props.dispatch(push('/login'));
     };
 
     goToProtected = () => {
-        this.props.dispatch(push('/protected'));
+      this.props.dispatch(push('/protected'));
     };
 
     goToLocks = () => {
-        this.props.dispatch(push('/locks'));
+      this.props.dispatch(push('/locks'));
     };
+
+    goToSettings = () => {
+      this.props.dispatch(push('/settings'));
+    };
+
 
     render() {
         const homeClass = classNames({
@@ -78,6 +83,10 @@ class App extends React.Component {
                                         <a className="navbar-brand" onClick={this.goToLocks}>
                                             my locks
                                         </a>
+                                        <a className="navbar-brand" onClick={this.goToSettings}>
+                                            settings
+                                        </a>
+
                                     </div> :
                                     <h2 className="navbar-title"> EasyLock, une solution pour administrer vos serrures simplement</h2>
                                 }
@@ -93,12 +102,10 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        isAuthenticated: state.auth.isAuthenticated,
-        location: state.routing.location
-    };
-};
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  location: state.routing.location,
+});
 
 export default connect(mapStateToProps)(App);
 export { App as AppNotConnected };

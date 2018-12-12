@@ -126,3 +126,24 @@ export function authRegisterUser(email, firstname, lastname, password) {
             });
     };
 }
+
+export function deleteAccount(userId, token) {
+  return (dispatch) => {
+    return fetch(SERVER_URL + '/api/v1/accounts/' + userId + '/', {
+      method: 'delete',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Token ' + token,
+      },
+    })
+      .then(checkHttpStatus)
+      .then(parseJSON)
+      .then((response) => {
+        dispatch(authLogoutAndRedirect());
+      })
+      .catch((error) => {
+        dispatch(authLogoutAndRedirect());
+        return Promise.resolve();
+      });
+  };
+}

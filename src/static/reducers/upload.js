@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   uploadPending: false,
+  uploadDone: false,
 };
 
 export default function uploadReducer(state = initialState, action) {
@@ -16,8 +17,13 @@ export default function uploadReducer(state = initialState, action) {
             });
 
         case UPLOAD_PICTURE_SUCCESS:
+            return Object.assign({}, state, {
+                uploadPending: false,
+                uploadDone: true,
+            });
         case UPLOAD_PICTURE_FAILURE:
             return Object.assign({}, state, {
+                uploadDone: false,
                 uploadPending: false,
             });
 

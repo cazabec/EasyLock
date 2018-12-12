@@ -32,13 +32,6 @@ class UploadView extends React.Component {
     this.upload = this.upload.bind(this);
   }
 
-  componentWillMount() {
-    if (this.props.profile_picture !== null &&
-      this.props.profile_picture !== undefined) {
-      this.props.history.push('/home');
-    }
-  }
-
   onDrop(pictureFiles) {
     this.setState({
       pictures: pictureFiles,
@@ -58,7 +51,7 @@ class UploadView extends React.Component {
 
   render() {
     let buttonState;
-    if (this.state.pictures.length < 5) {
+    if (this.state.pictures.length < 5 && this.props.profile_picture === null) {
       buttonState = 'disabled';
     } else if (this.props.uploadPending) {
       buttonState = 'loading';
@@ -69,7 +62,9 @@ class UploadView extends React.Component {
     return (
       <div className="container">
         <h1 className="text-center">Upload photos</h1>
-        <p> Please upload 5 profile images </p>
+        {
+          this.props.profile_picture === null && <p> Please upload 5 profile images </p>
+        }
         <ImageUploader
           withIcon
           withPreview

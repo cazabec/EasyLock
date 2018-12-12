@@ -8,6 +8,7 @@ import cv2
 
 from crop.align_dlib import AlignDlib
 
+logging.basicConfig()
 logger = logging.getLogger(__name__)
 
 align_dlib = AlignDlib(

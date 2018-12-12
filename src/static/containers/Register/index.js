@@ -54,7 +54,9 @@ class RegisterView extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.isAuthenticated) {
+    if (this.props.isAuthenticated &&
+      this.props.profile_picture === null &&
+      !this.props.uploadDone) {
       this.props.history.push('/upload');
     }
   }
@@ -66,7 +68,6 @@ class RegisterView extends React.Component {
   register = (e) => {
     e.preventDefault();
     const value = this.registerForm.getValue();
-    console.log(value);
     if (value) {
       this.props.actions.authRegisterUser(value.email,
         value.firstname,
@@ -125,6 +126,8 @@ class RegisterView extends React.Component {
 const mapStateToProps = state => ({
   statusText: state.auth.statusText,
   isAuthenticated: state.auth.isAuthenticated,
+  profile_picture: state.auth.user.profile_picture,
+  uploadDone: state.upload.uploadDone,
 });
 
 const mapDispatchToProps = dispatch => ({
