@@ -6,7 +6,7 @@ import 'react-virtualized/styles.css'; // only needs to be imported once
 const LockList = props =>
   (<div>
     <Table
-      width={500}
+      width={850}
       height={300}
       headerHeight={20}
       rowHeight={30}
@@ -18,7 +18,7 @@ const LockList = props =>
       <Column
         label='Name'
         dataKey='name'
-        width={200}
+        width={150}
       />
       <Column
         width={300}
@@ -26,13 +26,13 @@ const LockList = props =>
         dataKey='description'
       />
       <Column
-        width={50}
+        width={200}
         label='Members'
         dataKey='members'
         cellRenderer={data => props.rights.filter(right => data.rowData.id === right.lock).length}
       />
       <Column
-        width={100}
+        width={200}
         label='Role'
         dataKey='role'
         cellRenderer={data => props.rights.filter(

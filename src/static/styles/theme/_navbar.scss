@@ -1,12 +1,35 @@
 .navbar {
   border-radius: 0px;
-  width: 40%;
   height: 100vh;
   position: static;
   width: 40%;
   margin-bottom: 0 !important;
+  background-color: #66baff !important;
+  padding-left: 30px !important;
+  #top-navbar {
+    margin-top: 300px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    a {
+      margin-top: 100px;
+      svg {
+        &:hover {
+          color: #b9dfff;
+        }
+      }
+    }
+  }
   .navbar-title {
     margin-top:300px;
+    margin-bottom: 30px;
+    font-size: 60px;
+  }
+  .navbar-brand {
+    color: white !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: white !important;
   }
   a {
     text-decoration: none;

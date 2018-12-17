@@ -8,6 +8,8 @@
 .container {
 	width: 100% !important;
 	padding-right: 28px !important;
+	min-height: 300px;
+	position: relative;
 }
 
 .page-content-container {
@@ -19,4 +21,9 @@
 
 a:hover {
 	cursor: pointer;
+}
+
+h1 {
+	text-align: left !important;
+	color: #66baff !important;
 }

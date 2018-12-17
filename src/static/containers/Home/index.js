@@ -15,10 +15,6 @@ class HomeView extends React.Component {
         userName: '',
     };
 
-    goToProtected = () => {
-        this.props.dispatch(push('/protected'));
-    };
-
     componentWillMount() {
         if (this.props.user.profile_picture === null && !this.props.uploadDone) {
             this.props.dispatch(push('/upload'));
@@ -29,11 +25,8 @@ class HomeView extends React.Component {
         return (
             <div className="container">
                 <div className="text-center">
-                    <h1>Easylock Demo</h1>
-                    <h4>Hello, {this.props.userName || 'guest'}.</h4>
-                </div>
-                <div className="margin-top-medium text-center">
-                    <p>Attempt to access some <a onClick={this.goToProtected}><b>protected content</b></a>.</p>
+                    <h1>Easylock</h1>
+                    <h4>Hello {this.props.userName || 'guest'}</h4>
                 </div>
                 <div className="margin-top-medium">
                     {this.props.statusText ?

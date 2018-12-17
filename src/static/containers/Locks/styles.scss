@@ -1,5 +1,22 @@
-.ReactVirtualized__Table__row {
-	&:hover {
-		background-color: #edf3ff;
+
+.table-wrapper {
+	padding-top: 50px;
+	.ReactVirtualized__Table__row {
+		&:hover {
+			background-color: #edf3ff;
+		}
 	}
+}
+
+.btn-circle-xl {
+    width: 65px;
+    height: 65px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 30px;
+    border: 1px solid;
+    color: #66baff;
+    position: absolute;
+    right: 50px;
+ 	top: 20px;   
 }

@@ -3,11 +3,14 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import * as actionCreatorsUsers from '../../actions/users';
 import * as actionCreatorsLocks from '../../actions/locks';
 
 import UserList from '../../components/users';
+
+import './styles.scss';
 
 class LockView extends React.Component {
   static propTypes = {
@@ -26,19 +29,24 @@ class LockView extends React.Component {
   }
 
   render() {
-    const lock = this.props.match.params.id;
-    const rightsFilter = this.props.rights.filter((right) => lock === right.lock);
+    const lockId = this.props.match.params.id;
+    const lock = this.props.locks.filter((lock) => lock.id === lockId)[0];
+    const rightsFilter = this.props.rights.filter((right) => right.lock === lockId);
     const usersIds = rightsFilter.map((right) => right.user);
     const users = this.props.users.filter((user) => usersIds.includes(user.id))
     return (
       <div className="container">
+        <h1> { lock && lock.name } </h1>
         <button
           type="button"
-          onClick={() => {this.props.dispatch(push('/lock/' + lock + '/invite'))}}>
-          Invite somebody
+          className="btn-circle-xl"
+          onClick={() => {this.props.dispatch(push('/lock/' + lockId + '/invite'))}}>
+          <FontAwesomeIcon icon="plus" />
         </button>
-        <UserList users={users} rights={this.props.rights} lock={lock}/>
-        <p className="text-center">{this.props.match.params.id}</p>
+        <div className="table-wrapper">
+          <UserList users={users} rights={this.props.rights} lock={lockId}/>
+        </div>
+        <p>identifiant de la serrure:  {this.props.match.params.id}</p>
       </div>
     );
   }

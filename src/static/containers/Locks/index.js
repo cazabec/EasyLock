@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import * as actionCreators from '../../actions/locks';
 
@@ -33,10 +34,17 @@ class LocksView extends React.Component {
     return (
       <div className="container">
         <h1 className="text-center">Locks</h1>
-         <button type="button" onClick={() => {this.props.dispatch(push('/lock/new'))}}>Create a Lock</button> 
+        <button
+          type="button"
+          className="btn-circle-xl"
+          onClick={() => {this.props.dispatch(push('/lock/new'))}}>
+          <FontAwesomeIcon icon="plus" />
+        </button>
         {
           this.props.locks.length && this.props.rights.length &&
-          <LockList locks={this.props.locks} rights={this.props.rights} me={this.props.me}/>
+          <div className="table-wrapper">
+            <LockList locks={this.props.locks} rights={this.props.rights} me={this.props.me}/>
+          </div>
         }
       </div>
     );

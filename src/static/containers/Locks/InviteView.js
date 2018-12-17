@@ -10,6 +10,8 @@ import Datetime from 'react-datetime';
 import * as actionCreatorsUsers from '../../actions/users';
 import * as actionCreatorsLocks from '../../actions/locks';
 
+import './react-datetime.css';
+
 class InviteView extends React.Component {
   static propTypes = {
     token: PropTypes.string.isRequired,
