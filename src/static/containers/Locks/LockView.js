@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PlusIcon from './assets/plus.svg';
 
 import * as actionCreatorsUsers from '../../actions/users';
 import * as actionCreatorsLocks from '../../actions/locks';
@@ -41,7 +41,7 @@ class LockView extends React.Component {
           type="button"
           className="btn-circle-xl"
           onClick={() => {this.props.dispatch(push('/lock/' + lockId + '/invite'))}}>
-          <FontAwesomeIcon icon="plus" />
+          <img src={PlusIcon} className="App-logo" alt="logo" />
         </button>
         <div className="table-wrapper">
           <UserList users={users} rights={this.props.rights} lock={lockId}/>

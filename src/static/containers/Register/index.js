@@ -19,7 +19,6 @@ const Login = t.struct({
 
 const RegisterFormOptions = {
   auto: 'placeholders',
-  help: <i>Hint: j@j.com / john / doe / johnIsTheBest</i>,
   fields: {
     password: {
       type: 'password',
@@ -52,6 +51,10 @@ class RegisterView extends React.Component {
       },
     };
   }
+
+  onFormChange = (value) => {
+    this.setState({ formValues: value });
+  };
 
   componentWillMount() {
     if (this.props.isAuthenticated &&
@@ -111,7 +114,6 @@ class RegisterView extends React.Component {
             />
             <button
               type="submit"
-              className="btn btn-default btn-block"
             >
               Register
             </button>

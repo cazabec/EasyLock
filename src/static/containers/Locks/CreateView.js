@@ -1,10 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import t from 'tcomb-form';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+const Form = t.form.Form;
+
 import * as actionCreatorsLocks from '../../actions/locks';
+
+ const CreateLock = t.struct({
+    name: t.String,
+    description: t.String
+  });
+
+  const CreateLockFormOptions = {
+      auto: 'placeholders',
+      fields: {
+          password: {
+              type: 'password'
+          }
+      }
+  };
 
 class CreateView extends React.Component {
   static propTypes = {
@@ -14,8 +31,10 @@ class CreateView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      description: '',
+      formValues: {
+        name: '',
+        description: '',
+      },
     };
 
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
@@ -41,21 +60,36 @@ class CreateView extends React.Component {
     event.preventDefault();
   }
 
+  createLock = (e) => {
+        e.preventDefault();
+        const value = this.createLockForm.getValue();
+        if (value) {
+            this.props.actions.createLock(
+              value.name,
+              value.description,
+              this.props.token,
+            );
+        }
+    };
+
   render() {
     return (
-      <div className="container">
-        <p className="text-center">create</p>
-        <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={this.state.name} onChange={this.handleChangeTitle} />
-        </label>
-        <label>
-          Description:
-          <textarea value={this.state.description} onChange={this.handleChangeDescription} />
-          </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div className="container create-lock-container">
+        <h1>Nouvelle serrure</h1>
+        <form onSubmit={this.createLock}>
+            <Form ref={(ref) => { this.createLockForm = ref; }}
+                type={CreateLock}
+                options={CreateLockFormOptions}
+                value={this.state.formValues}
+                onChange={this.onFormChange}
+            />
+            <button
+                type="submit"
+                className="easylock-button"
+            >
+                Submit
+            </button>
+        </form>
       </div>
     );
   }

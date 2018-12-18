@@ -21,12 +21,12 @@ const LockList = props =>
         width={150}
       />
       <Column
-        width={300}
+        width={250}
         label='Description'
         dataKey='description'
       />
       <Column
-        width={200}
+        width={100}
         label='Members'
         dataKey='members'
         cellRenderer={data => props.rights.filter(right => data.rowData.id === right.lock).length}

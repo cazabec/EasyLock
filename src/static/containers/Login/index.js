@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 
 import * as actionCreators from '../../actions/auth';
 
+import './styles.scss';
+
 const Form = t.form.Form;
 
 const Login = t.struct({
@@ -17,7 +19,6 @@ const Login = t.struct({
 
 const LoginFormOptions = {
     auto: 'placeholders',
-    help: <i>Hint: a@a.com / qw</i>,
     fields: {
         password: {
             type: 'password'
@@ -75,7 +76,6 @@ class LoginView extends React.Component {
     login = (e) => {
         e.preventDefault();
         const value = this.loginForm.getValue();
-        console.log(value);
         if (value) {
             this.props.actions.authLoginUser(value.email, value.password, this.state.redirectTo);
         }
@@ -87,7 +87,7 @@ class LoginView extends React.Component {
             const statusTextClassNames = classNames({
                 'alert': true,
                 'alert-danger': this.props.statusText.indexOf('Authentication Error') === 0,
-                'alert-success': this.props.statusText.indexOf('Authentication Error') !== 0
+                'alert-success': this.props.statusText.indexOf('Authentication Error') !== 0,
             });
 
             statusText = (
@@ -104,7 +104,7 @@ class LoginView extends React.Component {
         return (
             <div className="container login">
                 <h1 className="text-center">Login</h1>
-                <div className="login-container margin-top-medium">
+                <div>
                     {statusText}
                     <form onSubmit={this.login}>
                         <Form ref={(ref) => { this.loginForm = ref; }}
@@ -115,7 +115,7 @@ class LoginView extends React.Component {
                         />
                         <button disabled={this.props.isAuthenticating}
                             type="submit"
-                            className="btn btn-default btn-block"
+                            className="easylock-button"
                         >
                             Submit
                         </button>

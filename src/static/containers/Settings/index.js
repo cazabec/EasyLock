@@ -3,9 +3,10 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ImageUploader from 'react-images-upload';
 
 import * as actionCreators from '../../actions/auth';
+
+import './styles.scss';
 
 class SettingsView extends React.Component {
   static propTypes = {
@@ -18,23 +19,28 @@ class SettingsView extends React.Component {
     return (
       <div className="container">
         <h1 className="text-center">Settings</h1>
+        <div className="buttons-wrapper">
           <button
             type="button"
-            onClick={() => {this.props.actions.authLogoutAndRedirect()}}>
+            onClick={() => {this.props.actions.authLogoutAndRedirect()}}
+            className="easylock-button">
             Logout
           </button>
           <button
             type="button"
             onClick={() => {
-              this.props.actions.deleteAccount(this.props.userId, this.props.token)}}>
+              this.props.actions.deleteAccount(this.props.userId, this.props.token)}}
+            className="easylock-button">
               delete account
           </button>
           <button
             type="button"
             onClick={() => {
-              this.props.dispatch(push('/upload'))}}>
+              this.props.dispatch(push('/upload'))}}
+            className="easylock-button">
               add pictures
           </button>
+        </div>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PlusIcon from './assets/plus.svg';
 
 import * as actionCreators from '../../actions/locks';
 
@@ -38,7 +38,7 @@ class LocksView extends React.Component {
           type="button"
           className="btn-circle-xl"
           onClick={() => {this.props.dispatch(push('/lock/new'))}}>
-          <FontAwesomeIcon icon="plus" />
+          <img src={PlusIcon} className="App-logo" alt="logo" />
         </button>
         {
           this.props.locks.length && this.props.rights.length &&

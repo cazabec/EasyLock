@@ -46,7 +46,7 @@ class InviteView extends React.Component {
   render() {
     return (
       <div className="container">
-        <p className="text-center">invite</p>
+        <h1>Invitation</h1>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <Autocomplete
             items={this.props.users}
@@ -65,7 +65,7 @@ class InviteView extends React.Component {
             onSelect={value => this.setState({ user: value })}
           />
           <Datetime onChange={date => {this.setState({expiration: date.format()});}} />
-          <input type="submit" value="Submit" />
+          <input className="easylock-button" type="submit" value="Submit" />
         </form>
       </div>
     );

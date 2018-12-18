@@ -3,9 +3,10 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import './styles.scss';
+
 class HomeView extends React.Component {
     static propTypes = {
-        statusText: PropTypes.string,
         userName: PropTypes.string,
         dispatch: PropTypes.func.isRequired,
     };
@@ -24,18 +25,19 @@ class HomeView extends React.Component {
     render() {
         return (
             <div className="container">
-                <div className="text-center">
-                    <h1>Easylock</h1>
-                    <h4>Hello {this.props.userName || 'guest'}</h4>
-                </div>
-                <div className="margin-top-medium">
-                    {this.props.statusText ?
-                        <div className="alert alert-info">
-                            {this.props.statusText}
-                        </div>
-                        :
-                        null
-                    }
+                <div className="home-wrapper">
+                    <h4><span className="welcome">Bienvenue</span> {this.props.user.first_name || ''} !</h4>
+                    <img
+                        src='https://res.cloudinary.com/dob8jdp8o/image/upload/v1545128805/EasyLock/1_Da2AbqNvq58WsO-zGibwXw.png'
+                        alt='facial recognition image'
+                    />
+                    <div className="list-wrapper">
+                        <ol className="custom-counter">
+                          <li>  Crée ta serrure en ligne</li>
+                          <li>  Décide qui peut entrer et à quelle heure</li>
+                          <li>  Lie ta serrure à notre API en quelques minutes</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         );
@@ -46,7 +48,6 @@ const mapStateToProps = (state) => {
     return {
         userName: state.auth.userName,
         user: state.auth.user,
-        statusText: state.auth.statusText,
         uploadDone: state.upload.uploadDone,
     };
 };

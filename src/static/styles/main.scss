@@ -10,6 +10,7 @@
 	padding-right: 28px !important;
 	min-height: 300px;
 	position: relative;
+	margin-left: 30px !important;
 }
 
 .page-content-container {
@@ -19,6 +20,10 @@
   align-items: center;
 }
 
+a {
+	color: #66baff !important;
+}
+
 a:hover {
 	cursor: pointer;
 }
@@ -26,4 +31,34 @@ a:hover {
 h1 {
 	text-align: left !important;
 	color: #66baff !important;
+}
+
+.easylock-button {
+	max-width: 230px !important;
+	margin: 10px 0 !important;
+	border: 3px solid #66baff;
+	font-family: inherit !important;
+	font-size: 12px !important;
+	color: #66baff !important;
+	background: #fff !important;
+	cursor: pointer !important;
+	padding: 10px 60px !important;
+	display: inline-block !important;
+	text-transform: uppercase !important;
+	letter-spacing: 1px !important;
+	font-weight: 700 !important;
+	outline: none !important;
+	position: relative !important;
+	-webkit-transition: all 0.3s !important;
+	-moz-transition: all 0.3s !important;
+	transition: all 0.3s !important;
+	&:hover {
+		color: #fff !important;
+		background: #66baff !important;
+	}
+}
+
+input:focus {
+	outline: none !important;
+    border-color: #66afe9;
 }

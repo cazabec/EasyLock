@@ -19,7 +19,7 @@ import requireAuthentication from './utils/requireAuthentication';
 export default(
   <Switch>
     <Route exact path="/" component={RegisterView} />
-    <Route path="/home" component={HomeView} />
+    <Route path="/home" component={requireAuthentication(HomeView)} />
     <Route path="/upload" component={requireAuthentication(UploadView)} />
     <Route path="/locks" component={requireAuthentication(LocksView)} />
     <Route path="/lock/new" component={requireAuthentication(CreateView)} />
