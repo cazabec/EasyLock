@@ -77,7 +77,7 @@ class App extends React.Component {
                                 <a className="navbar-brand" onClick={this.goToIndex}>
                                     EasyLock app
                                 </a>
-                                <Avatar round size="60" src={this.props.profile_picture_url}/>
+                                <Avatar round size="80" src={this.props.profile_picture_url}/>
                                 <div className="link-section-wrapper">
                                     <a className="navbar-brand" onClick={this.goToLocks}>
                                         <FontAwesomeIcon icon="lock" size="2x" />

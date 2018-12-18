@@ -35,7 +35,7 @@ class LockView extends React.Component {
     const usersIds = rightsFilter.map((right) => right.user);
     const users = this.props.users.filter((user) => usersIds.includes(user.id))
     return (
-      <div className="container">
+      <div className="container lock-view-container">
         <h1> { lock && lock.name } </h1>
         <button
           type="button"

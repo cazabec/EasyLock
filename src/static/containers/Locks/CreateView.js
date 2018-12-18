@@ -17,8 +17,8 @@ import * as actionCreatorsLocks from '../../actions/locks';
   const CreateLockFormOptions = {
       auto: 'placeholders',
       fields: {
-          password: {
-              type: 'password'
+          description: {
+              type: 'textarea'
           }
       }
   };
@@ -36,22 +36,9 @@ class CreateView extends React.Component {
         description: '',
       },
     };
-
-    this.handleChangeTitle = this.handleChangeTitle.bind(this);
-    this.handleChangeDescription = this.handleChangeDescription.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChangeTitle(event) {
-    this.setState({name: event.target.value});
-  }
-
-  handleChangeDescription(event) {
-    this.setState({description: event.target.value});
-  }
-
-
-  handleSubmit(event) {
+    handleSubmit(event) {
     this.props.actions.createLock(
       this.state.name,
       this.state.description,

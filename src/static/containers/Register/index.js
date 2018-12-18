@@ -114,6 +114,7 @@ class RegisterView extends React.Component {
             />
             <button
               type="submit"
+              className="easylock-button"
             >
               Register
             </button>
