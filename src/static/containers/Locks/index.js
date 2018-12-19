@@ -41,10 +41,10 @@ class LocksView extends React.Component {
           <img src={PlusIcon} className="App-logo" alt="logo" />
         </button>
         {
-          this.props.locks.length && this.props.rights.length &&
+          this.props.locks.length && this.props.rights.length ?
           <div className="table-wrapper">
             <LockList locks={this.props.locks} rights={this.props.rights} me={this.props.me}/>
-          </div>
+          </div> : 'Vous n\'avez pas encore de serrures'
         }
       </div>
     );

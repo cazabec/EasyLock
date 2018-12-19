@@ -8,8 +8,8 @@ import ImageUploader from 'react-images-upload';
 
 import * as actionCreators from '../../actions/upload';
 
-import './style.scss';
 import '../../../../node_modules/react-progress-button/react-progress-button.css';
+import './style.scss';
 
 class UploadView extends React.Component {
   static propTypes = {
@@ -60,7 +60,7 @@ class UploadView extends React.Component {
     }
 
     return (
-      <div className="container">
+      <div className="container upload-container">
         <h1 className="text-center">Upload photos</h1>
         {
           this.props.profile_picture === null && <p> Please upload 5 profile images </p>

@@ -1,3 +1,36 @@
-.uploadPictureContainer {
-	width:10% !important;
+.upload-container {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	.uploadPictureContainer {
+		width:10% !important;
+	}
+
+	.fileContainer {
+		width: 400px;
+		height: 300px;
+		margin: 40px 0;
+	}
+
+	.pb-container, .pb-container[disabled] {
+		width: 200px;
+		border-radius: 0px;
+		.pb-button, .pb-button[disabled] {
+			width: 200px;
+			color: #66baff;
+			border-radius: 0px;
+			border: 3px solid #66baff;
+			height: 45px;
+			span {			
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				font-weight: 700;
+				font-size: 12px;
+			}
+			.pb-progress-circle {
+				width: 20px;
+				height: 20px;
+			}
+		}
+	}
 }
