@@ -166,7 +166,7 @@ export function inviteFailure() {
   };
 }
 
-export function invite(user, lock, expiration, token) {
+export function invite(user, lock, expiration, start_time, stop_time, token) {
   return (dispatch) => {
     dispatch(inviteRequest());
     return fetch(SERVER_URL + '/api/v1/rights/', {
@@ -181,6 +181,8 @@ export function invite(user, lock, expiration, token) {
         expiration: expiration,
         user: user,
         lock: lock,
+        start_time: start_time,
+        stop_time: stop_time,
       }),
     })
       .then(checkHttpStatus)

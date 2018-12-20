@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import t from 'tcomb-form';
 
 import Autocomplete from 'react-autocomplete';
 import Datetime from 'react-datetime';
+import TimeField from 'react-simple-timefield';
 
 import * as actionCreatorsUsers from '../../actions/users';
 import * as actionCreatorsLocks from '../../actions/locks';
 
 import './react-datetime.css';
-  
+
+
 class InviteView extends React.Component {
   static propTypes = {
     token: PropTypes.string.isRequired,
@@ -25,6 +26,8 @@ class InviteView extends React.Component {
       lock: this.props.match.params.id,
       expiration: null,
       value: '',
+      start_time: '00:00',
+      stop_time: '00:00',
     };
   }
 
@@ -39,6 +42,8 @@ class InviteView extends React.Component {
       userId,
       this.state.lock,
       this.state.expiration,
+      this.state.start_time,
+      this.state.stop_time,
       this.props.token,
     );
     event.preventDefault();
@@ -75,6 +80,16 @@ class InviteView extends React.Component {
               onSelect={value => this.setState({ user: value })}
             />
           </div>
+          <TimeField
+            value={this.state.start_time}
+            onChange={(value) => { this.setState({start_time: value});}}
+            className='timefield'
+          />
+          <TimeField
+            value={this.state.stop_time}
+            onChange={(value) => { this.setState({stop_time: value});}}
+            className='timefield'
+          />
           <div className="datetime-wrapper">
             <Datetime
               onChange={date =>
