@@ -8,8 +8,9 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
 
 from django.conf import settings
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
+from django.utils.timezone import now, localtime
 
 from knox.auth import TokenAuthentication
 
@@ -28,8 +29,10 @@ class LockViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         lock = serializer.save()
-        Right.objects.create(user=self.request.user, lock=lock, right=Right.OWNER)
-
+        Right.objects.create(
+            user=self.request.user,
+            lock=lock,
+            right=Right.OWNER)
 
     def get_queryset(self):
         """
@@ -73,6 +76,10 @@ class OpenRequest(APIView):
             + 'image=' + str(image))
         user_id = response.text.splitlines()[2].split()[1][5:]
         similarity = response.text.splitlines()[2].split()[3]
-        get_object_or_404(Right, user__pk=user_id, lock__pk=lock_id)
+        right = get_object_or_404(Right, user__pk=user_id, lock__pk=lock_id)
+        if not (right.start_time <=
+                localtime(now()).time() < right.stop_time
+                or right.start_time == right.stop_time):
+            return HttpResponseForbidden()
         return Response({'user_id': user_id,
                         'similarity': similarity}, status=status.HTTP_200_OK)
