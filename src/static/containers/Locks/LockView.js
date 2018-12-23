@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PlusIcon from './assets/plus.svg';
 
@@ -55,6 +56,7 @@ class LockView extends React.Component {
           <UserList users={users} rights={this.props.rights} lock={lockId}/>
         </div>
         <p><span id='lock-id'>identifiant de la serrure:</span>  {this.props.match.params.id}</p>
+        <Link to={"/test/" + this.props.match.params.id} >Test this lock</Link>
       </div>
     );
   }

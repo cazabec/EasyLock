@@ -12,6 +12,7 @@ import {
   UploadView,
   LocksView,
   SettingsView,
+  TestView,
 } from './containers';
 
 import requireAuthentication from './utils/requireAuthentication';
@@ -28,6 +29,7 @@ export default(
     <Route path="/settings" component={requireAuthentication(SettingsView)} />
     <Route path="/login" component={LoginView} />
     <Route path="/protected" component={requireAuthentication(ProtectedView)} />
+    <Route path="/test/:id" component={requireAuthentication(TestView)} />
     <Route path="*" component={NotFoundView} />
   </Switch>
 
