@@ -6,6 +6,7 @@ import {
 
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
+import { setProfilePicture } from './auth';
 
 export function UploadPictureRequest() {
   return {
@@ -41,6 +42,7 @@ export function uploadPicture(picture, token) {
       .then(checkHttpStatus)
       .then(parseJSON)
       .then((response) => {
+        dispatch(setProfilePicture(response.image));
       })
       .catch((error) => {
         if (error && typeof error.response !== 'undefined' && error.response.status === 401) {

@@ -6,7 +6,8 @@ import {
     AUTH_LOGIN_USER_REQUEST,
     AUTH_LOGIN_USER_FAILURE,
     AUTH_LOGIN_USER_SUCCESS,
-    AUTH_LOGOUT_USER
+    AUTH_LOGOUT_USER,
+    SET_PROFILE_PICTURE,
 } from '../constants';
 
 
@@ -76,8 +77,8 @@ export function authLoginUser(email, password, redirect = '/') {
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
                     // Invalid authentication credentials
-                    return error.response.json().then((data) => {
-                        dispatch(authLoginUserFailure(401, data.non_field_errors[0]));
+                    return error.response.json().then(() => {
+                        dispatch(authLoginUserFailure(401, 'Email and password does not match'));
                     });
                 } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
@@ -106,7 +107,7 @@ export function authRegisterUser(email, firstname, lastname, password) {
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => {
-                dispatch(push('/login'));
+                dispatch(authLoginUser(email, password, '/home'));
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
@@ -145,5 +146,12 @@ export function deleteAccount(userId, token) {
         dispatch(authLogoutAndRedirect());
         return Promise.resolve();
       });
+  };
+}
+
+export function setProfilePicture(imageUrl) {
+  return {
+    type: SET_PROFILE_PICTURE,
+    payload: imageUrl,
   };
 }

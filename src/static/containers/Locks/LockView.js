@@ -29,24 +29,32 @@ class LockView extends React.Component {
   }
 
   render() {
+    if (this.props.rights.length === 0) {
+      return false;
+    }
     const lockId = this.props.match.params.id;
     const lock = this.props.locks.filter((lock) => lock.id === lockId)[0];
     const rightsFilter = this.props.rights.filter((right) => right.lock === lockId);
     const usersIds = rightsFilter.map((right) => right.user);
-    const users = this.props.users.filter((user) => usersIds.includes(user.id))
+    const users = this.props.users.filter((user) => usersIds.includes(user.id));
+    const myRole = this.props.rights.filter(
+      (right) => right.lock === lockId && right.user === this.props.me)[0].right;
     return (
       <div className="container lock-view-container">
         <h1> { lock && lock.name } </h1>
-        <button
-          type="button"
-          className="btn-circle-xl"
-          onClick={() => {this.props.dispatch(push('/lock/' + lockId + '/invite'))}}>
-          <img src={PlusIcon} className="App-logo" alt="logo" />
-        </button>
+        {
+          myRole === 'OWNER' &&
+          <button
+            type="button"
+            className="btn-circle-xl"
+            onClick={() => {this.props.dispatch(push('/lock/' + lockId + '/invite'))}}>
+            <img src={PlusIcon} className="App-logo" alt="logo" />
+          </button>
+        }
         <div className="table-wrapper">
           <UserList users={users} rights={this.props.rights} lock={lockId}/>
         </div>
-        <p>identifiant de la serrure:  {this.props.match.params.id}</p>
+        <p><span id='lock-id'>identifiant de la serrure:</span>  {this.props.match.params.id}</p>
       </div>
     );
   }
@@ -56,6 +64,7 @@ const mapStateToProps = state => ({
   locks: state.locks.list,
   rights: state.locks.rights,
   users: state.users.list,
+  me: state.auth.user.id,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -3,6 +3,7 @@ import {
     AUTH_LOGIN_USER_SUCCESS,
     AUTH_LOGIN_USER_FAILURE,
     AUTH_LOGOUT_USER,
+    SET_PROFILE_PICTURE,
 } from '../constants';
 
 
@@ -49,6 +50,9 @@ export default function authReducer(state = initialState, action) {
                 userName: null,
                 statusText: 'You have been successfully logged out.'
             });
+        case SET_PROFILE_PICTURE:
+            state.user.profile_picture = action.payload;
+            return state;
 
         default:
             return state;
