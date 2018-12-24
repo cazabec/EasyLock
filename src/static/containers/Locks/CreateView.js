@@ -62,7 +62,7 @@ class CreateView extends React.Component {
   render() {
     return (
       <div className="container create-lock-container">
-        <h1>Nouvelle serrure</h1>
+        <h1>Create a lock</h1>
         <form onSubmit={this.createLock}>
             <Form ref={(ref) => { this.createLockForm = ref; }}
                 type={CreateLock}

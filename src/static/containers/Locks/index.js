@@ -44,7 +44,7 @@ class LocksView extends React.Component {
           this.props.locks.length && this.props.rights.length ?
           <div className="table-wrapper">
             <LockList locks={this.props.locks} rights={this.props.rights} me={this.props.me}/>
-          </div> : 'Vous n\'avez pas encore de serrures'
+          </div> : 'You do not have any lock'
         }
       </div>
     );

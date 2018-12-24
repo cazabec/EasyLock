@@ -55,7 +55,7 @@ class LockView extends React.Component {
         <div className="table-wrapper">
           <UserList users={users} rights={this.props.rights} lock={lockId}/>
         </div>
-        <p><span id='lock-id'>identifiant de la serrure:</span>  {this.props.match.params.id}</p>
+        <p><span id='lock-id'>Lock id:</span>  {this.props.match.params.id}</p>
         <Link to={"/test/" + this.props.match.params.id} >Test this lock</Link>
       </div>
     );

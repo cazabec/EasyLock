@@ -26,16 +26,16 @@ class HomeView extends React.Component {
         return (
             <div className="container">
                 <div className="home-wrapper">
-                    <h4><span className="welcome">Bienvenue</span> {this.props.user.first_name || ''} !</h4>
+                    <h4><span className="welcome">Welcome</span> {this.props.user.first_name || ''} !</h4>
                     <img
                         src='https://res.cloudinary.com/dob8jdp8o/image/upload/v1545128805/EasyLock/1_Da2AbqNvq58WsO-zGibwXw.png'
                         alt='facial recognition image'
                     />
                     <div className="list-wrapper">
                         <ol className="custom-counter">
-                          <li>  Crée ta serrure en ligne</li>
-                          <li>  Décide qui peut entrer et à quelle heure</li>
-                          <li>  Lie ta serrure à notre API en quelques minutes</li>
+                          <li>  Create your lock online</li>
+                          <li>  Decide who can enter and when he can</li>
+                          <li>  Link your lock to our API in 5 minutes</li>
                         </ol>
                     </div>
                 </div>

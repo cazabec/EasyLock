@@ -61,9 +61,9 @@ class UploadView extends React.Component {
 
     return (
       <div className="container upload-container">
-        <h1 className="text-center">Upload photos</h1>
+        <h1 className="text-center">Upload profile pictures</h1>
         {
-          this.props.profile_picture === null && <p> Please upload 5 profile images </p>
+          this.props.profile_picture === null && <p> Please upload 5 profile pictures </p>
         }
         <ImageUploader
           withIcon

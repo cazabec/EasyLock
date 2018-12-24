@@ -13,7 +13,7 @@ import '../../../../node_modules/react-progress-button/react-progress-button.css
 class TestView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { pictures: [] };
+    this.state = { pictures: [], nbTest: 0 };
     this.onDrop = this.onDrop.bind(this);
     this.upload = this.upload.bind(this);
   }
@@ -25,6 +25,7 @@ class TestView extends React.Component {
   }
 
   upload() {
+    this.setState({nbTest: this.state.nbTest + 1});
     this.props.actions.testLock(
       this.state.pictures[0],
       this.props.match.params.id,
@@ -61,10 +62,10 @@ class TestView extends React.Component {
 
     return (
       <div className="container upload-container">
-        {statusText}
+        { this.state.nbTest > 0 && this.props.uploadPending === false && statusText }
         <h1 className="text-center">Test your lock !</h1>
-        <p> To test the lock with id {this.props.match.params.id}
-        Please upload a profile picture of someone </p>
+        <p> To test the lock with id {this.props.match.params.id} </p>
+        <p>upload a profile picture of someone to check if he can enter </p>
         <ImageUploader
           withIcon
           withPreview

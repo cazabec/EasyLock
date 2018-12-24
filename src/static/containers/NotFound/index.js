@@ -4,7 +4,7 @@ export default class NotFoundView extends React.Component {
     render() {
         return (
             <div>
-                <h1>NOT FOUND</h1>
+                <h1>Sorry we did not find the page requested</h1>
             </div>
         );
     }
