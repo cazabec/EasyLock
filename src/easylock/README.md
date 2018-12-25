@@ -52,3 +52,7 @@ The endpoints you can call are the ones below:
 ## Authentication
 
 All request must be authenticated thanks to a Bearer Token returned when you call the login endpoint.
+
+## Database Scheme
+
+![database scheme](https://github.com/cazabec/EasyLock/blob/develop/doc/database-scheme.png "Database scheme")
