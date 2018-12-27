@@ -24,6 +24,8 @@ urlpatterns = [
 
     url(r'^api/v1/getdata/', base_views.ProtectedDataView.as_view()),
 
+    url(r'^api/v1/train/', base_views.TrainView),
+
     url(r'^api/v1/open/(?P<lock_id>[0-9a-f-]+)', OpenRequest.as_view()),
 
     url(r'^api/$', get_schema_view()),

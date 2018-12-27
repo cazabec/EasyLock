@@ -3,11 +3,13 @@ import os
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.generic import View
+from django.views.decorators.csrf import csrf_exempt
 from knox.auth import TokenAuthentication
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+import requests
 
 
 class IndexView(View):
@@ -20,6 +22,13 @@ class IndexView(View):
             os.path.join(settings.BASE_DIR, 'static_dist/index.html'),
             'r')
         return HttpResponse(content=abspath.read())
+
+
+@csrf_exempt
+def TrainView(request):
+    """train classifier view"""
+    requests.get('http://ai:2000/classifier/train/')
+    return HttpResponse(status=status.HTTP_200_OK)
 
 
 class ProtectedDataView(GenericAPIView):

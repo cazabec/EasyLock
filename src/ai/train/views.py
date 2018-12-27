@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.views.generic import View
 
 import subprocess
+import os
 
 
 class TrainView(View):
@@ -11,6 +12,7 @@ class TrainView(View):
             '/root/openface/batch-represent/main.lua \
             -outDir /root/openface/code/pictures/upload/signatures \
             -data /root/openface/code/pictures/upload/output/', shell=True)
+        os.remove('/root/openface/code/pictures/upload/output/cache.t7')
         subprocess.call('/root/openface/demos/classifier.py train  \
         /root/openface/code/pictures/upload/signatures/ ', shell=True)
 
