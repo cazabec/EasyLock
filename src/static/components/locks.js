@@ -35,9 +35,10 @@ const LockList = props =>
         width={200}
         label='Role'
         dataKey='role'
-        cellRenderer={data => props.rights.filter(
+        cellRenderer={
+          data => props.rights.filter(
           right => data.rowData.id === right.lock &&
-          props.me === right.user)[0].right}
+          props.me === right.user)[0].right || 'loading'}
       />
 
 
