@@ -1,6 +1,7 @@
 import os
 import requests
 
+from datetime import datetime, timedelta
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -32,7 +33,9 @@ class LockViewSet(viewsets.ModelViewSet):
         Right.objects.create(
             user=self.request.user,
             lock=lock,
-            right=Right.OWNER)
+            right=Right.OWNER,
+            expiration=datetime.now() + timedelta(days=30)
+        )
 
     def get_queryset(self):
         """
@@ -76,6 +79,7 @@ class OpenRequest(APIView):
             + 'image=' + str(image))
         user_id = response.text.splitlines()[2].split()[1][5:]
         similarity = response.text.splitlines()[2].split()[3]
+        print (response.text)
         right = get_object_or_404(Right, user__pk=user_id, lock__pk=lock_id)
         if not (right.start_time <=
                 localtime(now()).time() < right.stop_time
