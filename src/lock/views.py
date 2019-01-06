@@ -1,5 +1,6 @@
 import os
 import requests
+import pytz
 
 from datetime import datetime, timedelta
 from rest_framework import viewsets, status
@@ -19,6 +20,8 @@ from lock.serializers import LockSerializer
 from lock.models import Lock
 from rights.models import Right
 
+
+utc=pytz.UTC
 
 class LockViewSet(viewsets.ModelViewSet):
     """
@@ -79,11 +82,11 @@ class OpenRequest(APIView):
             + 'image=' + str(image))
         user_id = response.text.splitlines()[2].split()[1][5:]
         similarity = response.text.splitlines()[2].split()[3]
-        print (response.text)
         right = get_object_or_404(Right, user__pk=user_id, lock__pk=lock_id)
-        if not (right.start_time <=
+        if not ((right.start_time <=
                 localtime(now()).time() < right.stop_time
-                or right.start_time == right.stop_time):
+                or right.start_time == right.stop_time)
+                and utc.localize(datetime.now()) < right.expiration):
             return HttpResponseForbidden()
         return Response({'user_id': user_id,
                         'similarity': similarity}, status=status.HTTP_200_OK)
