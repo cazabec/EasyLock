@@ -111,3 +111,15 @@ export function testLock(picture, lockId, token) {
       });
   };
 }
+
+export function trainClassifier(token) {
+  return (dispatch) => {
+    return fetch(SERVER_URL + '/api/v1/train/', {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Token ' + token,
+      },
+    })
+  };
+}

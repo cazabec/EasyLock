@@ -42,6 +42,10 @@ export default function uploadReducer(state = initialState, action) {
         case TEST_FAILURE:
           return Object.assign({}, state, {
                 uploadPending: false,
+                test: {
+                  user_id: null,
+                  similarity: null,
+                },
             });
         default:
             return state;

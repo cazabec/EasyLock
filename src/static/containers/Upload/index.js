@@ -45,6 +45,7 @@ class UploadView extends React.Component {
     });
     Promise.all(promiseArray).then(() => {
       this.props.actions.uploadPictureSuccess();
+      this.props.actions.trainClassifier(this.props.token);
       this.props.history.push('/home');
     });
   }

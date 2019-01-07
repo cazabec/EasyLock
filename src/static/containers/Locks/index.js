@@ -41,7 +41,7 @@ class LocksView extends React.Component {
           <img src={PlusIcon} className="App-logo" alt="logo" />
         </button>
         {
-          this.props.locks.length && this.props.rights.length ?
+          this.props.locks.length && this.props.rights.length && this.props.me ?
           <div className="table-wrapper">
             <LockList locks={this.props.locks} rights={this.props.rights} me={this.props.me}/>
           </div> : 'You do not have any lock'

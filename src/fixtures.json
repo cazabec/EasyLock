@@ -24,8 +24,8 @@
     "fields":{
       "password":"pbkdf2_sha256$20000$fSnaTbagnHiD$lZ5k1ZHDNM4oZir2IrWIrcRh0bEh4wYu+uuhh4ZZ9ZQ=",
       "last_login":"2015-12-29T00:57:23.201Z",
-      "first_name":"FirstName",
-      "last_name":"LastName",
+      "first_name":"Emilie",
+      "last_name":"Gautier",
       "email":"a@a.com",
       "gender":"M",
       "confirmed_email":false,
@@ -43,8 +43,8 @@
     "fields":{
       "password":"pbkdf2_sha256$36000$lhIPWnEtZPMk$xxnANmSLtfnx/bwpNqIAR3rlGSF21M0ZTqDSMaF0dlc=",
       "last_login":"2018-11-16T15:58:28.205Z",
-      "first_name":"",
-      "last_name":"",
+      "first_name":"Lea",
+      "last_name":"Hamidi",
       "email":"b@b.com",
       "gender":"M",
       "confirmed_email":false,
