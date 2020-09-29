@@ -1,10 +1,18 @@
 # EasyLock
 
-EasyLock is a SaaS solution to manage your virtual keys.
+EasyLock is a SaaS solution to manage your locks. It uses facial recognition.
 
 **Demo**
 
 ![Easylock animation](screenshots/animation/animation.gif)
+
+**How it works**
+
+- Create a new account and upload at least 5 pictures of you
+- Wait to be invited on a lock or create your own lock
+- Invite people on your lock by entering their email address
+- Set an expiration date for the invitation
+- Check who can open your lock by sending profile pictures
 
 **Frontend**
 
@@ -45,4 +53,4 @@ You can access shell in a container
 
 ## Access web app
 
-Just go to http://localhost:8000
+Just go to http://localhost:81
