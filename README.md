@@ -2,6 +2,10 @@
 
 EasyLock is a SaaS solution to manage your virtual keys.
 
+**Demo**
+
+![Easylock animation](screenshots/animation/animation.gif)
+
 **Frontend**
 
 * [React](https://github.com/facebook/react)
