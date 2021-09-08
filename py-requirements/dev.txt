@@ -1,6 +1,6 @@
 Django==1.11.4
 django-extensions==1.8.1
-Pillow==2.1.0
+Pillow==8.3.2
 
 # PostgresSQL
 psycopg2==2.7.3
